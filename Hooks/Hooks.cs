@@ -5,46 +5,49 @@ using TechTalk.SpecFlow;
 namespace SpecFlowBDDAutomationFramework.Hooks
 {
     [Binding]
-    public class Hooks { 
-
-        private static IWebDriver driver;
+    public class Hooks
+    {
+        private static IWebDriver _driver;
         private readonly WaitHelper _waitHelper;
 
         public Hooks()
         {
-            driver = DriverManager.GetDriver();
+            if (_driver == null)
+            {
+                _driver = DriverManager.GetDriver();
+            }
             _waitHelper = new WaitHelper();
         }
 
         [BeforeScenario(Order = 1)]
         public void BeforeScenario()
         {
-           
-            
-
         }
 
         [AfterScenario]
         public void AfterScenario()
         {
-            driver.Quit();
-            //driver.Dispose();
+            // driver.Quit();
         }
 
         [AfterTestRun]
-        public static void AfterTestRun() {
-
-            driver.Close();
-            driver.Dispose(); 
+        public static void AfterTestRun()
+        {
+            if (_driver != null)
+            {
+                _driver.Quit();
+                _driver.Dispose();
+                _driver = null;
+            }
         }
 
         private void ClickAcceptCookieButton()
         {
             try
             {
-                IWebElement AcceptCookieButton = driver.FindElement(By.XPath("//*[@data-cky-tag='accept-button']]"));
-                _waitHelper.WaitForElementToBeVisible(driver, AcceptCookieButton);
-                AcceptCookieButton.Click();
+                IWebElement acceptCookieButton = _driver.FindElement(By.XPath("//*[@data-cky-tag='accept-button']"));
+                _waitHelper.WaitForElementToBeVisible(_driver, acceptCookieButton);
+                acceptCookieButton.Click();
             }
             catch (NoSuchElementException)
             {
@@ -55,6 +58,5 @@ namespace SpecFlowBDDAutomationFramework.Hooks
                 Console.WriteLine($"Error occurred while clicking consent button: {ex.Message}");
             }
         }
-
     }
 }

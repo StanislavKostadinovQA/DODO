@@ -37,9 +37,7 @@ namespace SpecFlowProject2.StepDefinitions
         [When(@"I am on the Home Page")]
         public void WhenIAmOnTheHomePage()
         {
-            _waitHelper.WaitForElementToBeVisible(_driver, _homePage.WeAreStrypesHeaderText);
-            _waitHelper.WaitForElementToBeVisible(_driver, _homePage.AcceptCookieButton);
-            Thread.Sleep(3000);
+            Thread.Sleep(3500); //TODO
             _homePage.ClickElement("AcceptCookieButton");
         }
 
@@ -66,16 +64,37 @@ namespace SpecFlowProject2.StepDefinitions
             _contactPage.IsElementDisplayed("Youtube");
         }
 
+        
+        [Then(@"I should see the main section grid is displayed")]
+        public void ThenIShouldSeeTheMainSectionGridIsDisplayed()
+        {
+                List<string> expectedTexts = new List<string>
+                 {
+                   "About", "Services", "Customers", "Nearsurance", "Resources", "Careers"
+                 };
 
+                IWebElement headerSection = _homePage.HeaderSection;
+                IList<IWebElement> liElements = headerSection.FindElements(By.TagName("li"));
+                List<string> liTexts = new List<string>();
+                foreach (IWebElement li in liElements)
+                {
+                    liTexts.Add(li.Text.Trim());
+                }
 
+                foreach (string expectedText in expectedTexts)
+                {
+                    if (!liTexts.Contains(expectedText))
+                    {
+                        throw new Exception($"Validation failed: '{expectedText}' was not found in the header section.");
+                    }
+                }
 
-
-
-
-
+                Console.WriteLine("Validation passed: All expected texts are displayed in the header section.");
+            }
+        }
     }
 
-}
+
 
 
 

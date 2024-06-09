@@ -7,7 +7,11 @@ namespace SpecFlowProject2.PageObjects
         public HomePage() : base() { }
         private static IWebDriver driver = DriverManager.GetDriver();
 
-        public  IWebElement AcceptCookieButton => driver.FindElement(By.XPath("//*[@data-cky-tag='accept-button']"));
+        //header
+        public IWebElement HeaderSection => driver.FindElement(By.XPath("//ul[@id='menu-1-50af2d3b']"));
+
+
+        public IWebElement AcceptCookieButton => driver.FindElement(By.XPath("//*[@data-cky-tag='accept-button']"));
         public  IWebElement ContactPageHeaderLink => driver.FindElement(By.XPath("(//*[@class='elementor-item menu-link' and contains(text(),'Contact')])[1]"));
         public  IWebElement GetInTouch => driver.FindElement(By.XPath("//*[@title='Get in touch']"));
         public  IWebElement WeAreStrypesHeaderText => driver.FindElement(By.XPath("//h1"));
