@@ -15,5 +15,5 @@ Scenario Outline: Contact Page Subscription for newslater
 
 Examples: 
 | firstname | lastname | company | email |
-|  Johny    |   Doe       |   Apple      |  Stan22@gmail.com     |
+|  Johny    |   Doe    |   Apple     |  Stan22@gmail.com     |
 

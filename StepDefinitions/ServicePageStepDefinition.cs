@@ -58,10 +58,7 @@ namespace SpecFlowProject2.StepDefinitions
                 _servicepage.ScrollIntoView("RemoteDiagnosticSection");
                 _servicepage.IsElementDisplayed("RemoteDiagnosticSection");
                 _servicepage.IsElementDisplayed("SmartAplicationSection");
-
             }
-
-
         }
     }
 }
